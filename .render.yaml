@@ -2,8 +2,12 @@ services:
   - type: web
     name: latex-cloud-compiler
     env: python
+    plan: free
+    region: oregon
     buildCommand: |
-      apt-get update
-      apt-get install -y texlive texlive-latex-extra texlive-fonts-recommended texlive-lang-other texlive-lang-cjk
+      apt-get update -y
+      apt-get install -y sudo
+      sudo apt-get update
+      sudo apt-get install -y texlive texlive-latex-extra texlive-fonts-recommended texlive-lang-other texlive-lang-cjk
       pip install -r requirements.txt
     startCommand: python3 server.py
