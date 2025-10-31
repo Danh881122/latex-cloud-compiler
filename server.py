@@ -2,13 +2,7 @@ from flask import Flask, request, send_file, jsonify
 
 import subprocess, tempfile, os, shutil
 
-# --- CÀI TEXLIVE TỰ ĐỘNG (lần đầu) ---
-if shutil.which("pdflatex") is None:
-    print("Installing TeX Live ... please wait")
-    subprocess.run(
-        "apt-get update && apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-lang-other texlive-lang-cjk",
-        shell=True, check=False
-    )
+
 app = Flask(__name__)
 
 @app.route("/")
