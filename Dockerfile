@@ -1,16 +1,15 @@
-FROM texlive/texlive:latest
+FROM debian:bookworm-slim
 
-# Cài Python & pip
-RUN apt-get update && apt-get install -y python3 python3-pip
+# Cài LaTeX + Python
+RUN apt-get update \
+ && apt-get install -y texlive-full python3 python3-pip \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
-# Thư mục làm việc
 WORKDIR /app
-
-# Copy mã nguồn
 COPY . .
 
-# Cài Flask (cho phép ghi đè hệ thống)
+# PEP 668: cần --break-system-packages trong container Debian
 RUN pip install --break-system-packages -r requirements.txt
 
-# Chạy Flask server
 CMD ["python3", "server.py"]
