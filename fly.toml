@@ -1,0 +1,22 @@
+app = "latex-cloud-compiler"  # đổi tên nếu trùng
+primary_region = "sin"
+
+[build]
+dockerfile = "Dockerfile"
+
+[[services]]
+internal_port = 8080
+protocol = "tcp"
+
+  [[services.ports]]
+  handlers = ["http"]
+  port = 80
+
+  [[services.ports]]
+  handlers = ["tls", "http"]
+  port = 443
+
+  [services.concurrency]
+  type = "connections"
+  soft_limit = 50
+  hard_limit = 100
